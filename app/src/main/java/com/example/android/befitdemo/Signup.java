@@ -3,6 +3,7 @@ package com.example.android.befitdemo;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,8 +33,9 @@ public class Signup extends AppCompatActivity {
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_signup) Button _signupButton;
     @BindView(R.id.link_login) TextView _loginLink;
+    ProgressDialog progressDialog;
     int i=0;
-
+    FirebaseAuth auth;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +48,7 @@ public class Signup extends AppCompatActivity {
                 signup();
             }
         });
-
+         auth=FirebaseAuth.getInstance();
         _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,52 +68,38 @@ public class Signup extends AppCompatActivity {
 
         _signupButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(Signup.this);
+        progressDialog = new ProgressDialog(Signup.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        String name = _nameText.getText().toString();
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        final String name = _nameText.getText().toString();
+        final String email = _emailText.getText().toString();
+        final String password = _passwordText.getText().toString();
 
-        db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot d: dataSnapshot.getChildren())
-
-                {
-                  i++;
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        Users u= new Users(name,password,email);
-        db.child(String.valueOf(i)).setValue(u);
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            progressDialog.dismiss();
+                            Log.d(TAG,task.getException().getMessage());
+                            _signupButton.setEnabled(true);
+                        } else {
+                            Users u= new Users(name,password,email);
+                            db.child(auth.getCurrentUser().getUid()+"").setValue(u);
+                            progressDialog.dismiss();
+                            startActivity(new Intent(getApplicationContext(), Login.class));
+                            finish();
+                        }
                     }
-                }, 3000);
+                });
+
     }
 
 
-    public void onSignupSuccess() {
-        _signupButton.setEnabled(true);
-        startActivity(new Intent(this,Login.class));
-        setResult(RESULT_OK, null);
-        finish();
-    }
+
+
 
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
