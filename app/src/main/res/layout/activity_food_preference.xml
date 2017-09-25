@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAF0BE"
+    tools:context="com.example.android.befitdemo.foodPreference">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Your Food Preference :"
+        android:textSize="34sp"
+        android:textColor="black"
+        android:textColorHighlight="#4B5320"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="30dp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/foodp"
+        android:fontFamily="sans-serif"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vegetarian"
+        android:textSize="30sp"
+        android:id="@+id/veg"
+        android:textColor="#8DB600	"
+        android:layout_below="@id/foodp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="40dp"
+        android:textAlignment="center"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Non Vegetarian"
+        android:textSize="30sp"
+        android:id="@+id/nonveg"
+        android:textColor="#FF0800"
+        android:layout_below="@id/veg"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="40dp"
+        android:textAlignment="center"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Proceed"
+        android:textSize="30sp"
+        android:id="@+id/proceed"
+        android:textColor=""
+        android:layout_below="@id/nonveg"
+        android:layout_marginTop="60dp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

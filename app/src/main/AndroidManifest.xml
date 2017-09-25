@@ -22,7 +22,8 @@
         <activity android:name=".Login" />
         <activity android:name=".NextActivity" />
         <activity android:name=".input" />
-        <activity android:name=".BmiResult"></activity>
+        <activity android:name=".BmiResult" />
+        <activity android:name=".foodPreference"></activity>
     </application>
 
 </manifest>
