@@ -37,9 +37,10 @@ public class Login extends AppCompatActivity {
         ButterKnife.bind(this);
         auth= FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(Login.this, NextActivity.class));//
+            startActivity(new Intent(Login.this, input.class));//
             finish();
         }
+
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

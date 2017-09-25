@@ -20,7 +20,9 @@
         </activity>
         <activity android:name=".Signup" />
         <activity android:name=".Login" />
-        <activity android:name=".NextActivity"></activity>
+        <activity android:name=".NextActivity" />
+        <activity android:name=".input" />
+        <activity android:name=".BmiResult"></activity>
     </application>
 
 </manifest>

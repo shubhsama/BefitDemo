@@ -2,6 +2,7 @@ package com.example.android.befitdemo;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,14 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import butterknife.ButterKnife;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class Signup extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
@@ -86,10 +84,11 @@ public class Signup extends AppCompatActivity {
                             Log.d(TAG,task.getException().getMessage());
                             _signupButton.setEnabled(true);
                         } else {
-                            Users u= new Users(name,password,email);
-                            db.child(auth.getCurrentUser().getUid()+"").setValue(u);
+                            SharedPreferences.Editor sh=getSharedPreferences("Name",MODE_PRIVATE).edit();
+                            sh.putString("DisplayName",name);
+                            sh.apply();
                             progressDialog.dismiss();
-                            startActivity(new Intent(getApplicationContext(), Login.class));
+                            startActivity(new Intent(getApplicationContext(), input.class));
                             finish();
                         }
                     }
