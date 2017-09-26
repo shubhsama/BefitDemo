@@ -28,10 +28,10 @@ public class foodPreference extends AppCompatActivity {
         setContentView(R.layout.activity_food_preference);
         ButterKnife.bind(this);
 
-//        Intent intent = getIntent();
-//        if (intent.hasExtra(Intent.EXTRA_TEXT)) {
-//            bmi = Double.parseDouble(intent.getStringExtra(Intent.EXTRA_TEXT));
-//        }
+        Intent intent = getIntent();
+        if (intent.hasExtra(Intent.EXTRA_TEXT)) {
+            bmi = Double.parseDouble(intent.getStringExtra(Intent.EXTRA_TEXT));
+        }
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
