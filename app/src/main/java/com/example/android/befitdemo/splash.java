@@ -18,7 +18,7 @@ public class splash extends AppCompatActivity {
                 try
                 {
                     sleep(1500);     //milliseconds
-                    Intent intent= new Intent(getApplicationContext(),Login.class);
+                    Intent intent= new Intent(getApplicationContext(),DietChartActivity.class);
                     startActivity(intent);
                 }
                 catch(Exception e)

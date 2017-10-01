@@ -68,7 +68,7 @@
         android:layout_marginLeft="20dp"
         android:layout_below="@id/textView2"
         android:layout_toRightOf="@id/textView3"
-        android:inputType="text"
+        android:inputType="number"
         android:hint="In Kilograms"
          />
     <TextView
@@ -88,7 +88,7 @@
         android:ems="10"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:hint="In Centimetres"
         android:layout_below="@id/textView3"
         android:layout_toRightOf="@id/height"

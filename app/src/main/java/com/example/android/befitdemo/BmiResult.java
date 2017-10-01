@@ -25,16 +25,9 @@ public class BmiResult extends AppCompatActivity {
         setContentView(R.layout.activity_bmi_result);
         ButterKnife.bind(this);
         bmi = Double.parseDouble(getIntent().getStringExtra("Bmi"));
-
-        bmiText.setText((bmi+"").substring(0,5));
-        if(bmi<18.9)
-            bmiInfo.setText("You are underweight.");
-        else
-            if(bmi>18.9&&bmi<24.9)
-                bmiInfo.setText("You are healthy.");
-        else{
-                bmiInfo.setText("It seems you're overweight.");
-            }
+        if((bmi+"").length()>=5)
+            bmiText.setText((bmi+"").substring(0,5));
+        bmiInfo.setText(Functions.getBmiResult(bmi));
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

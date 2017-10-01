@@ -44,7 +44,9 @@ public class input extends AppCompatActivity {
                 w= Double.parseDouble(weightEdit.getText().toString());
                 h=Double.parseDouble(heightEdit.getText().toString());
                 bmi= w/((h*h)/10000);
-                Users u= new Users(a,w,h,bmi);
+                if((bmi+"").length()>=5)
+                    bmi=Double.parseDouble((bmi+"").substring(0,5));
+                Users u= new Users(Functions.getName(getApplicationContext()),a,w,h,bmi);
                 db.setValue(u);
                 Intent intent= new Intent(getApplicationContext(),BmiResult.class);
                 intent.putExtra("Bmi",bmi+"");

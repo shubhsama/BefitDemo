@@ -13,17 +13,14 @@ public class Users {
     double height;
     double bmi;
 
-    public Users(String name, String password, String email) {
-        this.name = name;
-        this.password = password;
-        this.email = email;
-    }
 
-    public Users(int age, double weight, double height,double bmi) {
+
+    public Users(String name,int age, double weight, double height,double bmi) {
         this.age = age;
         this.weight = weight;
         this.height = height;
         this.bmi=bmi;
+        this.name=name;
     }
 
     public String getPassword() {
