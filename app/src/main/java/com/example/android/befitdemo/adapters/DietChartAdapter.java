@@ -37,13 +37,16 @@ public class DietChartAdapter extends RecyclerView.Adapter<DietChartAdapter.Char
     CardClickListener cardClickListener;
     String uid= Functions.getUid();
      double bmi;
+
     String prefer,res="";
     DatabaseReference db= FirebaseDatabase.getInstance().getReference("Users").child(uid);
     DatabaseReference db2= FirebaseDatabase.getInstance().getReference("Charts");
-    public DietChartAdapter(List<String> list, Activity activity, CardClickListener cardClickListener) {
+    public DietChartAdapter(List<String> list, Activity activity, CardClickListener cardClickListener,String res,double bmi) {
         this.list = list;
         this.activity = activity;
         this.cardClickListener = cardClickListener;
+        this.bmi=bmi;
+        this.res=res;
     }
 
     @Override
@@ -95,43 +98,14 @@ public class DietChartAdapter extends RecyclerView.Adapter<DietChartAdapter.Char
 
 
             final TextView item= (TextView)dialog.findViewById(R.id.item);
+            final TextView title= (TextView)dialog.findViewById(R.id.heading);
 
-            db.child("bmi").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    bmi = dataSnapshot.getValue(Double.class);
-                    Log.d("prefer",bmi+"");
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-            db.child("preference").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    preference = dataSnapshot.getValue(String.class);
-
-                    if(preference.equals("Vegetarian"))
-                        res ="Veg";
-                    else
-                        res ="NonVeg";
-
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-            Log.d("Pre",res);
-
+            Log.d("Meme", bmi+" " +res);
             db2.child(Functions.getBmiResultforFirebase(bmi)).child(res).child(cat).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     item.setText(dataSnapshot.getValue(String.class));
+                    title.setText(mealTimeTv.getText().toString());
                     dialog.show();
                 }
 

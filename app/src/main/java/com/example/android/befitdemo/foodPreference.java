@@ -46,6 +46,8 @@ public class foodPreference extends AppCompatActivity {
                 radioButton = (RadioButton) findViewById(id);
                 db.child("preference").setValue(radioButton.getText().toString());
                 Intent intent = new Intent(foodPreference.this, DietChartActivity.class);
+                intent.putExtra("Preference",radioButton.getText().toString());
+                intent.putExtra(Intent.EXTRA_TEXT, bmi+"");
                 startActivity(intent);
             }
         });

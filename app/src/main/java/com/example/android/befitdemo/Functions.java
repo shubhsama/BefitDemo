@@ -23,9 +23,7 @@ import static android.R.attr.data;
 public class Functions {
     public static DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Users").child(Functions.getUid());
     public static DatabaseReference databaseReference2= FirebaseDatabase.getInstance().getReference("Charts");
-    private static double bmi;
 
-    static String res ;
     public static String preference;
     public static String getName(Context context){
         String s="";
@@ -54,22 +52,6 @@ public class Functions {
             result = "Overweight";
         }
         return result;
-    }
-    public static double getBmi()
-    {
-        databaseReference.child("bmi").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                bmi = dataSnapshot.getValue(Double.class);
-                Log.d("prefer",bmi+"");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return bmi;
     }
 
 
